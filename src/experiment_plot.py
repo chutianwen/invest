@@ -35,7 +35,8 @@ def plot_comparison_metrics(control: Metric, treatment: Metric, output):
     p_treatment_net_income = plt.bar(target_yrs, treatment.net_income[0], width)
     plt.xticks(target_yrs, target_yrs + 1)
     plt.ylabel(f'net income/{control.net_income[1]}')
-    plt.ylim(0, max(max(control.net_income[0]), max(treatment.net_income[0])) * YLIM_OFFSET)
+    plt.ylim(min(min(control.net_income[0]), min(treatment.net_income[0]), 0) * YLIM_OFFSET,
+             max(max(control.net_income[0]), max(treatment.net_income[0])) * YLIM_OFFSET)
     plt.legend((p_control_net_income[0], p_treatment_net_income[0]), (control.invest_type, treatment.invest_type))
     plt.title(f"{control.des} net income: {control.invest_type} vs {treatment.invest_type}")
     autolabel(p_control_net_income)
@@ -46,7 +47,8 @@ def plot_comparison_metrics(control: Metric, treatment: Metric, output):
     p_treatment_yield_income_ratio = plt.bar(target_yrs, treatment.yield_income_ratio[0], width)
     plt.xticks(target_yrs, target_yrs + 1)
     plt.ylabel(f'rate')
-    plt.ylim(0, max(max(control.yield_income_ratio[0]), max(treatment.yield_income_ratio[0])) * YLIM_OFFSET)
+    plt.ylim(min(min(control.yield_income_ratio[0]), min(treatment.yield_income_ratio[0]), 0) * YLIM_OFFSET,
+             max(max(control.yield_income_ratio[0]), max(treatment.yield_income_ratio[0])) * YLIM_OFFSET)
     plt.legend((p_control_yield_income_ratio[0], p_treatment_yield_income_ratio[0]),
                (control.invest_type, treatment.invest_type))
     plt.title(f"{control.des} net income yield: {control.invest_type} vs {treatment.invest_type}")
@@ -58,8 +60,8 @@ def plot_comparison_metrics(control: Metric, treatment: Metric, output):
     p_treatment_yield_house_price_change_ratio = plt.bar(target_yrs, treatment.yield_house_price_change_ratio[0], width)
     plt.xticks(target_yrs, target_yrs + 1)
     plt.ylabel(f'rate')
-    plt.ylim(0, max(max(control.yield_house_price_change_ratio[0]),
-                    max(treatment.yield_house_price_change_ratio[0])) * YLIM_OFFSET)
+    plt.ylim(min(min(control.yield_house_price_change_ratio[0]), min(treatment.yield_house_price_change_ratio[0]), 0) * YLIM_OFFSET,
+             max(max(control.yield_house_price_change_ratio[0]), max(treatment.yield_house_price_change_ratio[0])) * YLIM_OFFSET)
     plt.legend((p_control_yield_house_price_change_ratio[0], p_treatment_yield_house_price_change_ratio[0]),
                (control.invest_type, treatment.invest_type))
     plt.title(f"{control.des} house price change yield: {control.invest_type} vs {treatment.invest_type}")
@@ -71,7 +73,8 @@ def plot_comparison_metrics(control: Metric, treatment: Metric, output):
     p_treatment_yield_ratio = plt.bar(target_yrs, treatment.yield_ratio[0], width)
     plt.xticks(target_yrs, target_yrs + 1)
     plt.ylabel(f'rate')
-    plt.ylim(0, max(max(control.yield_ratio[0]), max(treatment.yield_ratio[0])) * YLIM_OFFSET)
+    plt.ylim(min(min(control.yield_ratio[0]), min(treatment.yield_ratio[0]), 0) * YLIM_OFFSET,
+             max(max(control.yield_ratio[0]), max(treatment.yield_ratio[0])) * YLIM_OFFSET)
     plt.legend((p_control_yield_ratio[0], p_treatment_yield_ratio[0]),
                (control.invest_type, treatment.invest_type))
     plt.title(f"{control.des} yield: {control.invest_type} vs {treatment.invest_type}")
@@ -97,9 +100,12 @@ def plot_self_metrics(annual_flow_metric: AnnualFlowMetric, accumulative_metric:
     p_house_price_change = plt.bar(target_yrs + width, annual_flow_metric.house_price_change[0], width, color='orange')
     plt.xticks(target_yrs, target_yrs + 1)
     plt.ylabel(f'expense, net-income, hours_price_change/{accumulative_metric.expenses[1]}')
-    plt.ylim(0, max(max(accumulative_metric.expenses[0]),
-                    max(annual_flow_metric.net_income[0]),
-                    max(annual_flow_metric.house_price_change[0])) * YLIM_OFFSET)
+    plt.ylim(min(min(accumulative_metric.expenses[0]),
+                 min(annual_flow_metric.net_income[0]),
+                 min(annual_flow_metric.house_price_change[0]), 0) * YLIM_OFFSET,
+             max(max(accumulative_metric.expenses[0]),
+                 max(annual_flow_metric.net_income[0]),
+                 max(annual_flow_metric.house_price_change[0])) * YLIM_OFFSET)
     plt.legend((p_expenses[0], p_net_income[0], p_house_price_change[0]),
                ("expense", "net_income", "house_price_change"))
     plt.title(f"{annual_flow_metric.des} expense, net income and house price change at Nth year")
@@ -113,9 +119,12 @@ def plot_self_metrics(annual_flow_metric: AnnualFlowMetric, accumulative_metric:
     p_acc_house_price_change = plt.bar(target_yrs + width, accumulative_metric.house_price_change[0], width, color='orange')
     plt.xticks(target_yrs, target_yrs + 1)
     plt.ylabel(f'expense, net-income, hours_price_change/{accumulative_metric.expenses[1]}')
-    plt.ylim(0, max(max(accumulative_metric.expenses[0]),
-                    max(accumulative_metric.net_income[0]),
-                    max(accumulative_metric.house_price_change[0])) * YLIM_OFFSET)
+    plt.ylim(min(min(accumulative_metric.expenses[0]),
+                 min(accumulative_metric.net_income[0]),
+                 min(accumulative_metric.house_price_change[0]), 0) * YLIM_OFFSET,
+             max(max(accumulative_metric.expenses[0]),
+                 max(accumulative_metric.net_income[0]),
+                 max(accumulative_metric.house_price_change[0])) * YLIM_OFFSET)
     plt.legend((p_expenses[0], p_acc_net_income[0], p_acc_house_price_change[0]),
                ("expense", "net_income", "house_price_change"))
     plt.title(f"{accumulative_metric.des} expense, net income and house price change to Nth year")

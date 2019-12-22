@@ -1,5 +1,5 @@
 from src.metrics import AnnualFlowMetric, AccumulativeMetric
-from src.util import unit_transform
+from src.util import unit_transform, unified_unit
 
 
 class HouseInvestSolution:
@@ -134,9 +134,14 @@ class HouseInvestSolution:
             print(f"acc_income_yield_ratio_yr:{unit_transform(acc_income_yield_ratio_yr)[0]}")
             print(f"acc_house_price_yield_ratio_yr:{unit_transform(acc_house_price_yield_ratio_yr)[0]}")
 
+        # unified unit
+        expenses_yr, net_income_yr, house_price_change_yr, acc_net_income_yr, acc_house_price_change_yr = \
+            unified_unit([expenses_yr, net_income_yr, house_price_change_yr, acc_net_income_yr, acc_house_price_change_yr])
+        loan_balance_yr, principal_paid_yr, interest_paid_yr = unified_unit([loan_balance_yr, principal_paid_yr, interest_paid_yr])
         annualFlowMetric = AnnualFlowMetric(self.invest_type(), loan_balance_yr, principal_paid_yr, interest_paid_yr,
                                             net_income_yr,house_price_change_yr, yield_income_ratio_yr,
                                             yield_house_price_change_yr)
+
         accumulativeMetrics = AccumulativeMetric(self.invest_type(), expenses_yr, acc_net_income_yr,
                                                  acc_house_price_change_yr, acc_income_yield_ratio_yr,
                                                  acc_house_price_yield_ratio_yr)
