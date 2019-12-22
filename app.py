@@ -7,11 +7,11 @@ If you only care investment plan/solution independently, uncomment "treatment_so
 in control_solution, then run the code.
 If you want to learn by comparison, set parameters in both control and treatment solutions, then run the code.
 '''
-control_solution = HouseInvestSolution(price=200000, down_payment_ratio=0.2, mortgage_yr=15, interest_rate_yr=0.035,
+control_solution = HouseInvestSolution(price=2000000, down_payment_ratio=0.2, mortgage_yr=15, interest_rate_yr=0.035,
                                        hoa_month=200, maintain_yr=1000, property_tax_yr=2000, rent_month=2500,
                                        house_price_change_yr=0.01)
 
-treatment_solution = HouseInvestSolution(price=200000, down_payment_ratio=1, mortgage_yr=0, interest_rate_yr=0.02875,
+treatment_solution = HouseInvestSolution(price=2000000, down_payment_ratio=1, mortgage_yr=0, interest_rate_yr=0.02875,
                                          hoa_month=200, maintain_yr=1000, property_tax_yr=2000, rent_month=2500,
                                          house_price_change_yr=0.01)
 # treatment_solution = None
