@@ -124,10 +124,12 @@ def plot_self_metrics(annual_flow_metric: AnnualFlowMetric, accumulative_metric:
 
 
 
-def experiment(control: HouseInvestSolution, treatment: HouseInvestSolution, target_yr):
-    control_annual_flow_metrics, control_accumulative_metrics = control.experiment(target_yr, True)
-    treatment_annual_flow_metrics, treatment_accumulative_metrics = treatment.experiment(target_yr, True)
-    plot_comparison_metrics(control_annual_flow_metrics, treatment_annual_flow_metrics, "..")
-    plot_comparison_metrics(control_accumulative_metrics, treatment_accumulative_metrics, "..")
-    plot_self_metrics(control_annual_flow_metrics, control_accumulative_metrics, "..")
-    plot_self_metrics(treatment_annual_flow_metrics, treatment_accumulative_metrics, "..")
+def experiment(control: HouseInvestSolution, treatment: HouseInvestSolution=None, target_yr=30):
+    if control:
+        control_annual_flow_metrics, control_accumulative_metrics = control.experiment(target_yr, True)
+        plot_self_metrics(control_annual_flow_metrics, control_accumulative_metrics, "..")
+        if treatment:
+            treatment_annual_flow_metrics, treatment_accumulative_metrics = treatment.experiment(target_yr, True)
+            plot_self_metrics(treatment_annual_flow_metrics, treatment_accumulative_metrics, "..")
+            plot_comparison_metrics(control_annual_flow_metrics, treatment_annual_flow_metrics, "..")
+            plot_comparison_metrics(control_accumulative_metrics, treatment_accumulative_metrics, "..")
