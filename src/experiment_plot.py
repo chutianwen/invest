@@ -1,5 +1,7 @@
 from src.house_invest_solution import HouseInvestSolution
 from src.metrics import AnnualFlowMetric, AccumulativeMetric, Metric
+import matplotlib
+
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 import numpy as np
@@ -7,6 +9,11 @@ import numpy as np
 YLIM_OFFSET = 1.4
 FIGURE_WIDTH=4
 FONT = {'weight': 'bold', 'size': 25}
+
+SMALL_SIZE = 30
+MEDIUM_SIZE = 50
+BIGGER_SIZE = 100
+
 
 def autolabel(rects):
     """
@@ -21,9 +28,16 @@ def plot_comparison_metrics(control: Metric, treatment: Metric, output):
     target_yr = len(control.house_price_change)
     target_yrs = np.arange(target_yr)
     figure(num=None, figsize=(target_yr * FIGURE_WIDTH, 100), dpi=100, facecolor='w', edgecolor='k')
-    plt.rc('font', **FONT)
     plt.subplots_adjust(hspace=0.35)
     width = 0.35
+    plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
+    plt.rc('axes', titlesize=MEDIUM_SIZE)  # fontsize of the axes title
+    plt.rc('axes', labelsize=MEDIUM_SIZE)  # fontsize of the x and y labels
+    plt.rc('xtick', labelsize=MEDIUM_SIZE)  # fontsize of the tick labels
+    plt.rc('ytick', labelsize=MEDIUM_SIZE)  # fontsize of the tick labels
+    plt.rc('legend', fontsize=MEDIUM_SIZE)  # legend fontsize
+    plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
     plt.subplot(4, 1, 1)
     p_control_net_income = plt.bar(target_yrs - width, control.net_income, width)
     p_treatment_net_income = plt.bar(target_yrs, treatment.net_income, width)
@@ -76,9 +90,15 @@ def plot_self_metrics(annual_flow_metric: AnnualFlowMetric, accumulative_metric:
     target_yr = len(annual_flow_metric.house_price_change)
     target_yrs = np.arange(target_yr)
     figure(num=None, figsize=(target_yr * FIGURE_WIDTH, 100), dpi=100, facecolor='w', edgecolor='k')
-    plt.rc('font', **FONT)
     plt.subplots_adjust(hspace=0.35)
     width = 0.28
+    plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
+    plt.rc('axes', titlesize=MEDIUM_SIZE)  # fontsize of the axes title
+    plt.rc('axes', labelsize=MEDIUM_SIZE)  # fontsize of the x and y labels
+    plt.rc('xtick', labelsize=MEDIUM_SIZE)  # fontsize of the tick labels
+    plt.rc('ytick', labelsize=MEDIUM_SIZE)  # fontsize of the tick labels
+    plt.rc('legend', fontsize=MEDIUM_SIZE)  # legend fontsize
+    plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
     is_mortgage = annual_flow_metric.loan_balance[0] > 1
     total_plots = 2 + int(is_mortgage)
@@ -128,9 +148,9 @@ def plot_self_metrics(annual_flow_metric: AnnualFlowMetric, accumulative_metric:
 def experiment(control: HouseInvestSolution, treatment: HouseInvestSolution=None, target_yr=30):
     if control:
         control_annual_flow_metrics, control_accumulative_metrics = control.experiment(target_yr, True)
-        plot_self_metrics(control_annual_flow_metrics, control_accumulative_metrics, "..")
+        plot_self_metrics(control_annual_flow_metrics, control_accumulative_metrics, ".")
         if treatment:
             treatment_annual_flow_metrics, treatment_accumulative_metrics = treatment.experiment(target_yr, True)
-            plot_self_metrics(treatment_annual_flow_metrics, treatment_accumulative_metrics, "..")
-            plot_comparison_metrics(control_annual_flow_metrics, treatment_annual_flow_metrics, "..")
-            plot_comparison_metrics(control_accumulative_metrics, treatment_accumulative_metrics, "..")
+            plot_self_metrics(treatment_annual_flow_metrics, treatment_accumulative_metrics, ".")
+            plot_comparison_metrics(control_annual_flow_metrics, treatment_annual_flow_metrics, ".")
+            plot_comparison_metrics(control_accumulative_metrics, treatment_accumulative_metrics, ".")

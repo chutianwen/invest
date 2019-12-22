@@ -12,14 +12,13 @@ conda env create -f environment.yml
 If you are a conda hater, then just make sure `numpy, matplot` are installed in python path.
 
 ## Manual
-Modify investment parameters inside `src/app.py` as described in the comment, then
+Modify investment parameters inside `./app.py` as described in the comment, then
 
 ```shell
 # if mac
 source activate py37
 # if windows
 activate py37
-cd src
 python app.py
 ```
 
@@ -36,5 +35,5 @@ Usually good comparison study is like AB testing, you only have one "treatment(i
 - **shorter term mortage** vs **longer term mortage** on same house: treatment on financial plan
 - **A house** vs **B house** with same(or similar) mortgage plan like 15 year fixed rate: treatment on house selection
 
-But nothing stops you to apply compound treatment of **house selection** pluse "financial plan**. 
+But nothing stops you to apply compound treatment of **house selection** pluse **financial plan**. 
 
