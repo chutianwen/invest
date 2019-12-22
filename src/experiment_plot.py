@@ -5,7 +5,8 @@ from matplotlib.pyplot import figure
 import numpy as np
 
 YLIM_OFFSET = 1.4
-FONT = {'weight': 'bold', 'size': 40}
+FIGURE_WIDTH=4
+FONT = {'weight': 'bold', 'size': 25}
 
 def autolabel(rects):
     """
@@ -19,7 +20,7 @@ def autolabel(rects):
 def plot_comparison_metrics(control: Metric, treatment: Metric, output):
     target_yr = len(control.house_price_change)
     target_yrs = np.arange(target_yr)
-    figure(num=None, figsize=(target_yr * 3, 100), dpi=100, facecolor='w', edgecolor='k')
+    figure(num=None, figsize=(target_yr * FIGURE_WIDTH, 100), dpi=100, facecolor='w', edgecolor='k')
     plt.rc('font', **FONT)
     plt.subplots_adjust(hspace=0.35)
     width = 0.35
@@ -74,7 +75,7 @@ def plot_comparison_metrics(control: Metric, treatment: Metric, output):
 def plot_self_metrics(annual_flow_metric: AnnualFlowMetric, accumulative_metric: AccumulativeMetric, output):
     target_yr = len(annual_flow_metric.house_price_change)
     target_yrs = np.arange(target_yr)
-    figure(num=None, figsize=(target_yr * 3, 100), dpi=100, facecolor='w', edgecolor='k')
+    figure(num=None, figsize=(target_yr * FIGURE_WIDTH, 100), dpi=100, facecolor='w', edgecolor='k')
     plt.rc('font', **FONT)
     plt.subplots_adjust(hspace=0.35)
     width = 0.28
