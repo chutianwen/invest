@@ -2,3 +2,6 @@
 .ipynb*
 .idea
 .idea/*
+.DS_Store
+
+src/__pycache__
