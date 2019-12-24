@@ -1,35 +1,31 @@
 from src.util import unit_transform
-import numpy as np
 
 
 class Metric:
-    def __init__(self, invest_type, des, net_income, house_price_change, yield_income_ratio, yield_house_price_change_ratio):
-        self.invest_type = invest_type
+    def __init__(self, des, net_income, house_price_change, roa_net_income, roa_house_price_change, roa_total):
         self.des = des
         self.net_income = net_income
         self.house_price_change = house_price_change
-        self.yield_income_ratio = unit_transform(yield_income_ratio)
-        self.yield_house_price_change_ratio = unit_transform(yield_house_price_change_ratio)
-        self.yield_ratio = unit_transform(list(np.array(yield_income_ratio) + np.array(yield_house_price_change_ratio)))
+        self.roa_net_income = unit_transform(roa_net_income)
+        self.roa_house_price_change = unit_transform(roa_house_price_change)
+        self.roa_total = unit_transform(roa_total)
 
 
-class AnnualFlowMetric(Metric):
-    def __init__(self, invest_type, loan_balance, principal, interest, net_income, house_price_change,
-                 yield_income_ratio, yield_house_price_change_ratio):
-        self.invest_type = invest_type
+class SingleYrMetric(Metric):
+    def __init__(self, loan_balance, principal, interest, net_income, house_price_change,
+                 single_yr_roa_net_income, single_yr_roa_house_price_change, single_yr_roa_total):
         self.loan_balance = loan_balance
         self.principal = principal
         self.interest = interest
-        des = 'Annual'
-        super().__init__(invest_type, des, net_income, house_price_change, yield_income_ratio,
-                         yield_house_price_change_ratio)
+        des = 'Single year'
+        super().__init__(des, net_income, house_price_change, single_yr_roa_net_income,
+                         single_yr_roa_house_price_change, single_yr_roa_total)
 
 
-class AccumulativeMetric(Metric):
-    def __init__(self, invest_type, expenses, net_income, house_price_change, yield_income_ratio,
-                 yield_house_price_change_ratio):
-        self.invest_type = invest_type
-        self.expenses = expenses
-        des = 'Accumulative'
-        super().__init__(invest_type, des, net_income, house_price_change, yield_income_ratio,
-                         yield_house_price_change_ratio)
+class CompoundMetric(Metric):
+    def __init__(self, assets, compound_net_income, compound_house_price_change,
+                 compound_roa_net_income, compound_roa_house_price, compound_roa_total):
+        self.assets = assets
+        des = 'Compound'
+        super().__init__(des, compound_net_income, compound_house_price_change, compound_roa_net_income,
+                         compound_roa_house_price, compound_roa_total)
