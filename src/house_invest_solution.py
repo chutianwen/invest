@@ -4,11 +4,12 @@ from src.util import unit_transform, unified_unit
 
 class HouseInvestSolution:
 
-    def __init__(self, price, down_payment_ratio=0.0, mortgage_yr=0.0, interest_rate_yr=0.0,
+    def __init__(self, name, price, down_payment_ratio=0.0, mortgage_yr=0.0, interest_rate_yr=0.0,
                  hoa_month=0.0, maintain_yr=0.0, property_tax_yr=0.0, rent_month=0.0, house_price_change_yr=0.0):
         """
         Fundamental properties of this invest strategy
         """
+        self.name = name
         self.price = price
         self.down_payment_ratio = down_payment_ratio
         self.down_payment = down_payment_ratio * price
@@ -42,7 +43,7 @@ class HouseInvestSolution:
         return des
 
     def loan_payment(self):
-        if self.mortgage_yr == 0:
+        if self.mortgage_yr == 0 or self.down_payment_ratio == 1.0:
             return 0
         else:
             # discount Factor (D) = {[(1 + i) ^n] - 1} / [i(1 + i)^n]
@@ -51,10 +52,10 @@ class HouseInvestSolution:
             return self.loan / discount_factor
 
     def invest_type(self):
-        if self.mortgage_yr == 0:
-            return "full_cash"
+        if self.mortgage_yr == 0 or self.down_payment_ratio == 1.0:
+            return f"{self.name}-full_cash"
         else:
-            return f"{self.mortgage_yr}-year_mortgage"
+            return f"{self.name}-{self.mortgage_yr}-year_mortgage"
 
     def experiment(self, target_yr, debug=False):
         # data for each month

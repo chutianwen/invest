@@ -12,6 +12,7 @@ class Metric:
         self.yield_house_price_change_ratio = unit_transform(yield_house_price_change_ratio)
         self.yield_ratio = unit_transform(list(np.array(yield_income_ratio) + np.array(yield_house_price_change_ratio)))
 
+
 class AnnualFlowMetric(Metric):
     def __init__(self, invest_type, loan_balance, principal, interest, net_income, house_price_change,
                  yield_income_ratio, yield_house_price_change_ratio):

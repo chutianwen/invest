@@ -6,3 +6,5 @@
 .DS_Store
 
 src/__pycache__
+img
+img/*
